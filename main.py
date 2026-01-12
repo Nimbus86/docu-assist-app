@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-AZURE_ENDPOINT = os.getenv("AZURE_ENDPPOINT")
+AZURE_ENDPOINT = os.getenv("AZURE_ENDPOINT")
 AZURE_KEY = os.getenv("AZURE_KEY")
 
 
