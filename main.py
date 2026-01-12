@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import base64
 import requests
+import os
 
 app = FastAPI()
 
