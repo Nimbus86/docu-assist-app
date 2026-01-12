@@ -6,7 +6,7 @@ import requests
 app = FastAPI()
 
 AZURE_ENDPOINT = "https://docuvisionai.cognitiveservices.azure.com/"
-AZURE_KEY ="9fzADg4WZdfQlk3ec7xY2O0kpoo8fo5sBmfetrNh5Qtelnr7lygcJQQJ99CAAC5RqLJXJ3w3AAAFACOGACsj"
+AZURE_KEY =""
 
 
 class Page(BaseModel):
