@@ -1,8 +1,33 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from pydantic import BaseModel
 import base64
 import requests
 import os
+import httpx
+from fastapi import HTTPException
+from pydantic import BaseModel
+from app.groq_client import call_groq
+from app.prompts import SUMMARIZE_PROMPT
+
+class TextRequest(BaseModel):
+    text: str
+
+@app.post("/summarize")
+async def summarize(req: TextRequest):
+    if not req.text or not req.text.strip():
+        raise HTTPException(status_code=400, detail="Empty text")
+    prompt = SUMMARIZE_PROMPT.replace("{{CONTRACT_TEXT}}", req.text)
+    try:
+        out = await call_groq(prompt, max_tokens=1200, temperature=0.0)
+        return {"summary": out.strip()}
+    except httpx.HTTPStatusError:
+        raise HTTPException(status_code=502, detail="Model error")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Internal error")
+
+
+load_dotenv()
 
 app = FastAPI()
 
